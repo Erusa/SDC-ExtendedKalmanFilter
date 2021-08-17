@@ -1,7 +1,7 @@
 # SDC-ExtendedKalmanFilter
 
-My own Project from SDC Udacity Course (Project 5). This code implements a Observator/Extended Kalman Filter to predict and update the position of a car.
-An Kalman Filter is not enough because the radar sensor input is nonlinear, because of that Extended Kalman Filter has to linearize the measurements using 1st Order Taylor.
+My own Project from SDC Udacity Course (Project 5). This code implements an Observator/Extended Kalman Filter to predict and update the position of a car.
+A Kalman Filter is not enough because the radar sensor input is nonlinear, because of that Extended Kalman Filter has to linearize the measurements using 1st Order Taylor.
 
 1. Readme
 2. FusionEKF class: This class implements Extended Kalman Filter for radar and laser sensors. 
