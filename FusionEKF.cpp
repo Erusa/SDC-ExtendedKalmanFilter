@@ -40,15 +40,8 @@ FusionEKF::FusionEKF() {
    * TODO: Set the process and measurement noises
    */
   // set the acceleration noise components
-  noise_ax = 9;
-  noise_ay = 9;
-  /*// measurement noises 
-  ekf.R_=R_laser;
-  //process noise
-  ekf.Q_ <<  0, 0 ,0, 0,
-  			0,0,0,0,
-              0,0,0,0,
-              0,0,0,0;*/
+  noise_ax = 9.0f;
+  noise_ay = 9.0f;
   // the initial process covariance matrix Q_
   ekf_.Q_= MatrixXd(4, 4);
   // the initial transition matrix F_
@@ -57,13 +50,13 @@ FusionEKF::FusionEKF() {
             0, 1, 0, 1,
             0, 0, 1, 0,
             0, 0, 0, 1;
-  // state covariance matrix P_
+  // state covariance matrix P_, values should actually came from sensor variance
   ekf_.P_ = MatrixXd(4, 4);
   ekf_.P_ << 1, 0, 0, 0,
             0, 1, 0, 0,
             0, 0, 1000, 0,
             0, 0, 0, 1000;
-  // values for H_laser
+  // values for H_laser, laser standard matrix
    H_laser_ << 1,0,0,0,
   				0,1,0,0;
   // values for Hj_ are computed each time;
@@ -87,56 +80,54 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      */
 
     // first measurement
-    cout << "EKF: " << endl;
-    //cout << "EKF01: " << endl;
+    //cout << "EKF: " << endl;
     ekf_.x_ = VectorXd(4);
-    //cout << "EKF1: " << endl;
-    //ekf_.x_ << 1, 1, 1, 1;
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
-      cout << "EKF: Radar" << endl;
+      //cout << "EKF: Radar" << endl;
       // TODO: Convert radar from polar to cartesian coordinates 
       //         and initialize state.
       // set the state with the initial location and zero velocity
       // Asumption: theta is in radians
       // Asumption: not enouh information to initialize acceleration, because a_x and a_y are not known
-    	ekf_.x_ << measurement_pack.raw_measurements_[0]*cos(measurement_pack.raw_measurements_[1]), 
-              measurement_pack.raw_measurements_[0]*sin(measurement_pack.raw_measurements_[1]), 
+    	ekf_.x_ << measurement_pack.raw_measurements_(0)*cos(measurement_pack.raw_measurements_(1)), 
+              measurement_pack.raw_measurements_(0)*sin(measurement_pack.raw_measurements_(1)), 
               0, 
               0;
 
     	previous_timestamp_ = measurement_pack.timestamp_;
     	is_initialized_ = true;
         // print the output
-  		cout << "x_ = " << ekf_.x_ << endl;
-  		cout << "P_ = " << ekf_.P_ << endl;
+  		//cout << "x_ = " << ekf_.x_ << endl;
+  		//cout << "P_ = " << ekf_.P_ << endl;
     	return;
 
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
-      cout << "EKF: Laser" << endl;
+      //cout << "EKF: Laser" << endl;
       // TODO: Initialize state.
       // set the state with the initial location and zero velocity
-    	ekf_.x_ << measurement_pack.raw_measurements_[0], 
-              measurement_pack.raw_measurements_[1], 
+    	ekf_.x_ << measurement_pack.raw_measurements_(0), 
+              measurement_pack.raw_measurements_(1), 
               0, 
               0;
 
     	previous_timestamp_ = measurement_pack.timestamp_;
     	is_initialized_ = true;
         // print the output
- 		 cout << "x_ = " << ekf_.x_ << endl;
-  		cout << "P_ = " << ekf_.P_ << endl;
+ 		//cout << "x_ = " << ekf_.x_ << endl;
+  		//cout << "P_ = " << ekf_.P_ << endl;
     	return;
       
     }
 
     // done initializing, no need to predict or update
     is_initialized_ = true;
+    ekf_.x_ << 1, 1, 1, 1;
     return;
   }
   
-  cout << "EKF: 2nd" << endl;
+  //cout << "EKF: 2nd" << endl;
   /**
    * Prediction
    */
@@ -183,9 +174,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 	ekf_.UpdateEKF(measurement_pack.raw_measurements_);
   } else {
     // TODO: Laser updates
-    //ekf_.F_ = 
-    //ekf_.Q_ =
-    //ekf_.P_=
     ekf_.R_=R_laser_;
     ekf_.H_=H_laser_;
     //Update the state and covariance matrices.
@@ -193,6 +181,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   }
 
   // print the output
-  cout << "x_ = " << ekf_.x_ << endl;
-  cout << "P_ = " << ekf_.P_ << endl;
+  //cout << "x_ = " << ekf_.x_ << endl;
+  //cout << "P_ = " << ekf_.P_ << endl;
 }

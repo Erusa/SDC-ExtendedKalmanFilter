@@ -67,7 +67,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   float vy =x_(3);
   float temp = sqrt(pow(px,2)+pow(py,2));
   
-    VectorXd h_x;
+    VectorXd h_x(3);
     // check division by zero
   if (temp < 0.0001) {
     cout << "ERROR: UpdateEKF () -Division by Zero" << endl;
@@ -81,7 +81,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   VectorXd y = z - z_pred;
   //y[1] should be from -pi to pi, transforming y
   // Asumption: z is also only from -pi to pi, no module % requiere, rest would be enough
-  if (y(1)>M_PI){y(1) -= y(1) - 2*M_PI;}
+  if (y(1)>M_PI){y(1) = y(1) - 2*M_PI;}
   else if (y(1)<-M_PI){y(1) = y(1) + 2*M_PI;}
   
   //Extended Kalman Filter Equations, using normal Kalman Filter Equations because in previous equations H_ was replaced by Hj
