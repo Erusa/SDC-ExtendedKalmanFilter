@@ -19,6 +19,7 @@ An Kalman Filter is not enough because the radar sensor input is nonlinear, beca
 
 ### RSME using both sensor
 <img src="./images/ExtendedKalmanFilter_DataSet1.png" width="100" height="100">
+<img src="./images/ExtendedKalmanFilter_DataSet2.png" width="100" height="100">
 ![alt_text][image2]
 ### RSME using only Laser sensor
 ![alt_text][image5]
