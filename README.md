@@ -8,3 +8,7 @@ An Kalman Filter is not enough because the radar sensor input is nonlinear, beca
 3. kalman_filter class: This class implements general equation for kalman filter and extended kalman filter.
 4. tools class: This class calculares RSME and Jacobian for EKF.
 
+### RSME using both sensor
+[image1]: ../images/ExtendedKalmanFilter_DataSet1.png "EKF1"
+![alt_text][image1]
+
