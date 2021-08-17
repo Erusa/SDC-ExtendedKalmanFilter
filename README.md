@@ -8,26 +8,21 @@ An Kalman Filter is not enough because the radar sensor input is nonlinear, beca
 3. kalman_filter class: This class implements general equation for kalman filter and extended kalman filter.
 4. tools class: This class calculares RSME and Jacobian for EKF.
 
-
-[//]: # (Image References)
-[image1]: ./images/ExtendedKalmanFilter_DataSet1.png "EKF1"
-[image2]: ./images/ExtendedKalmanFilter_DataSet2.png "EKF2"
-[image3]: ./images/ExtendedKalmanFilter_nonLaser_DataSet1.png "EKF1"
-[image4]: ./images/ExtendedKalmanFilter_nonLaser_DataSet2.png "EKF2"
-[image5]: ./images/ExtendedKalmanFilter_nonRadar_DataSet1.png "EKF1"
-[image6]: ./images/ExtendedKalmanFilter_nonRadar_DataSet2.png "EKF2"
-
 ### RSME using both sensor
 <p float="left">
 <img src="./images/ExtendedKalmanFilter_DataSet1.png" width="400" height="300">
 <img src="./images/ExtendedKalmanFilter_DataSet2.png" width="400" height="300">
 </p>
+
 ### RSME using only Laser sensor
 <p float="left">
 <img src="./images/ExtendedKalmanFilter_nonLaser_DataSet1.png" width="400" height="300">
 <img src="./images/ExtendedKalmanFilter_nonLaser_DataSet2.png" width="400" height="300">
 </p>
+
 ### RSME using only Radar sensor
-![alt_text][image3]
-![alt_text][image4]
+<p float="left">
+<img src="./images/ExtendedKalmanFilter_nonRadar_DataSet1.png" width="400" height="300">
+<img src="./images/ExtendedKalmanFilter_nonRadar_DataSet2.png" width="400" height="300">
+</p>
 
